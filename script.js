@@ -133,7 +133,7 @@ function init() {
   const logoElement = document.querySelector(".logo");
   logoElement.addEventListener("click", () => {
     console.log("clicked");
-    window.location = "/";
+    window.location = "/burger_webshop_frontend_only/";
   });
 
   const aboutElement = document.querySelector(".about");
