@@ -27,7 +27,7 @@ const mainComponent = () => `
     <p>Where every bite is an adventure! Our chefs craft <strong>mouthwatering, locally-sourced </strong>burgers using only the freshest ingredients. From classic cheeseburgers to gourmet specialties, there's something for everyone. <strong>Feeling bold?</strong> Try our signature Burger Land Challenge! Whether dining in or ordering online, every burger is a journey of flavor and satisfaction. Welcome to <strong>Burger Land</strong>: Where Every Bite is an Adventure! 🎉</p>
 </div>
 <div class="picture">
-    <img src="/images/wallpaper copy.jpg" alt="burger">
+    <img src="images/wallpaper.jpg" alt="burger">
 </div>
 `;
 
