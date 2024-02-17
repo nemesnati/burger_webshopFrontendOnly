@@ -1,4 +1,4 @@
-const rootElement = document.querySelector("#root");
+const rootElement = document.getElementById("root");
 let total = 0;
 
 const skeletonComponent = () => `
