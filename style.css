@@ -148,7 +148,7 @@ main {
   }
   
   .container {
-    background-color: #f2f2f2;
+    background-color: #edeae6;
     padding: 5px 15px 10px 15px;
     border: 1px solid lightgrey;
     border-radius: 3px;
@@ -229,13 +229,14 @@ span.cart-price {
 }
 
 .burgercard img{
+    align-self: center;
     width: 45%;
     height: auto;
 }
 
 .cart-container{
     display: flex;
-    gap: 35px
+    gap: 35px;
 }
 
 div.burger-price{
@@ -326,4 +327,22 @@ footer {
         margin: 0 -16px;
         gap: 10px;
       }
+}
+@media (max-width: 1434px){
+    .row {
+        display: flex;
+        flex-direction: row;
+        margin: 0 -16px;
+        gap: 10px;
+      }
+      
+}
+@media (max-width: 491px){
+    .row {
+        display: flex;
+        flex-direction: column;
+        margin: 0 -16px;
+        gap: 10px;
+      }
+      
 }

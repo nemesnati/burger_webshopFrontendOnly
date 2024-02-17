@@ -1,5 +1,4 @@
 const rootElement = document.querySelector("#root");
-let burgers = [];
 let total = 0;
 
 const skeletonComponent = () => `
@@ -34,22 +33,26 @@ const mainComponent = () => `
 
 const footerComponent = () => `<h5>The Team Project</h2>`;
 
-const aboutComponent = (data) => `
+const aboutComponent = () => `
 <div class="about-text">
-    <p>${data}</p>
+    <p>Burger Land was born from a shared <strong>love for burgers</strong> and a dream to create an online community for burger enthusiasts. In 2019, it started as a small online platform for sharing recipes and tips. As the community grew, so did the vision. In 2020, the <strong>Burger Land Marketplace</strong> launched, offering a variety of burger-related products. In 2021, the Burger Builder tool was introduced, allowing users to create custom burgers and order them from local joints. Today, Burger Land is a <strong>thriving community and marketplace</strong> for burger lovers. Join us and make every bite an adventure! 🍔🎉</p>
 </div>
 `;
 
-const burgersComponent = (data) => `
-
-    <div class="burgercard">
-        <div><img src=${data.img} alt="pizza"></div>
-        <h2>${data.name}</h2>
-        <h4>${data.price}</h4>
-        <h2>${data.meat_patty_weight}</h2>
-        <p>${data.topping}</p>
-    </div>
-`;
+const burgersComponent = () => {
+  return burgers
+    .map(
+      (burger) =>
+        `<div class="burgercard">
+          <img src=${burger.img} alt="pizza">
+          <h2>${burger.name}</h2>
+          <h4>${burger.price}</h4>
+          <h2>${burger.meat_patty_weight}</h2>
+          <p>${burger.topping}</p>
+      </div>`
+    )
+    .join("");
+};
 
 const burgerContainerComponent = () => `<div class="burger-container"></div>`;
 
@@ -136,9 +139,8 @@ function init() {
   const aboutElement = document.querySelector(".about");
   aboutElement.addEventListener("click", () => {
     console.log("clicked");
-    fetch("/about")
-      .then((res) => res.json())
-      .then((data) => (mainElement.innerHTML = aboutComponent(data)));
+    mainElement.innerHTML = "";
+    mainElement.insertAdjacentHTML("beforeend", aboutComponent());
   });
 
   const menuElement = document.querySelector(".menu");
@@ -147,93 +149,51 @@ function init() {
     mainElement.innerHTML = "";
     mainElement.insertAdjacentHTML("beforeend", burgerContainerComponent());
     mainElement.insertAdjacentHTML("beforeend", cartComponent());
+
     const burgerContainerElement = document.querySelector(".burger-container");
     const burgerNameElement = document.querySelector(".burger-name");
     const burgerPriceElement = document.querySelector(".burger-price");
     const burgerTotalElement = document.querySelector(".price");
 
-    fetch("/burgers")
-      .then((res) => res.json())
-      .then((data) => {
-        burgerData = data.map((burger) => burgersComponent(burger));
+    const burgerCards = burgersComponent();
+    burgerContainerElement.insertAdjacentHTML("beforeend", burgerCards);
 
-        burgerContainerElement.insertAdjacentHTML(
+    const burgercardElements = document.querySelectorAll(".burgercard");
+    burgercardElements.forEach((burgercardElement) =>
+      burgercardElement.addEventListener("click", (event) => {
+        const burgercardData = event.target.parentElement;
+        const burgerH2 = burgercardData.querySelector("h2").innerText;
+        const burgerH4 = Number(burgercardData.querySelector("h4").innerText);
+
+        burgerNameElement.insertAdjacentHTML(
           "beforeend",
-          burgerData.join("")
+          burgerNameComponent(burgerH2)
+        );
+        burgerPriceElement.insertAdjacentHTML(
+          "beforeend",
+          burgerPriceComponent(burgerH4)
         );
 
-        const burgercardElements = document.querySelectorAll(".burgercard");
-        burgercardElements.forEach((burgercardElement) =>
-          burgercardElement.addEventListener("click", (event) => {
-            const burgercardData = event.target.parentElement;
-            const burgerH2 = burgercardData.querySelector("h2").innerText;
-            const burgerH4 = Number(
-              burgercardData.querySelector("h4").innerText
-            );
+        const newTotal = (total += burgerH4);
+        burgers.push(burgerH2);
+        console.log(burgers);
 
-            burgerNameElement.insertAdjacentHTML(
-              "beforeend",
-              burgerNameComponent(burgerH2)
-            );
-            burgerPriceElement.insertAdjacentHTML(
-              "beforeend",
-              burgerPriceComponent(burgerH4)
-            );
-
-            const newTotal = (total += burgerH4);
-            burgers.push(burgerH2);
-            console.log(burgers);
-
-            burgerTotalElement.innerHTML = burgerTotal(newTotal);
-
-            const newUserFormElement = document.querySelector("form");
-            newUserFormElement.addEventListener("submit", async (event) => {
-              event.preventDefault();
-
-              const response = await fetch("/burgers", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  burger: {
-                    name: burgers,
-                  },
-                  total: newTotal,
-                  name: {
-                    full: newUserFormElement.querySelector(
-                      'input[name="firstname"]'
-                    ).value,
-                  },
-                  email: newUserFormElement.querySelector('input[name="email"]')
-                    .value,
-                  shipping: {
-                    address: newUserFormElement.querySelector(
-                      'input[name="address"]'
-                    ).value,
-                    city: newUserFormElement.querySelector('input[name="city"]')
-                      .value,
-                    state: newUserFormElement.querySelector(
-                      'input[name="state"]'
-                    ).value,
-                    zip: newUserFormElement.querySelector('input[name="zip"]')
-                      .value,
-                  },
-                }),
-              });
-
-              const newOrder = await response.json();
-              console.log(newOrder);
-            });
-          })
-        );
-      });
+        burgerTotalElement.innerHTML = burgerTotal(newTotal);
+      })
+    );
+    const checkoutButton = document.querySelector(".btn");
+    checkoutButton.addEventListener("click", () => {
+      const formData = new FormData(document.querySelector("form"));
+      const billingAddress = Object.fromEntries(formData.entries());
+      const order = {
+        burgers: burgers,
+        billingAddress: billingAddress,
+        total: total,
+      };
+      localStorage.setItem("order", JSON.stringify(order));
+      console.log("Order placed:", order);
+      alert("Order placed successfully!");
+    });
   });
-
-  //   const wishElement = document.querySelector(".wish");
-  //   wishElement.addEventListener("click", () => {
-  //     mainElement.innerHTML = "";
-  //     mainElement.insertAdjacentHTML("beforeend", wishComponent());
-  //   });
 }
 init();
