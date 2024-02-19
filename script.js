@@ -46,8 +46,8 @@ const burgersComponent = () => {
         `<div class="burgercard">
           <img src=${burger.img} alt="pizza">
           <h2>${burger.name}</h2>
-          <h4>$${burger.price}</h4>
-          <h2>${burger.meat_patty_weight}</h2>
+          <h4>${burger.price}</h4>
+          <h3>${burger.meat_patty_weight}</h3>
           <p>${burger.topping}</p>
       </div>`
     )
@@ -81,7 +81,7 @@ const cartComponent = () => `
 <div class="col-75">
     <div class="container">
         
-        <form>
+        <form class="form">
             <div class="row">
                 <div class="col-50">
                     <h3>Billing Address</h3>
@@ -137,14 +137,12 @@ function init() {
 
   const aboutElement = document.querySelector(".about");
   aboutElement.addEventListener("click", () => {
-    console.log("clicked");
     mainElement.innerHTML = "";
     mainElement.insertAdjacentHTML("beforeend", aboutComponent());
   });
 
   const menuElement = document.querySelector(".menu");
   menuElement.addEventListener("click", () => {
-    console.log("clicked");
     mainElement.innerHTML = "";
     mainElement.insertAdjacentHTML("beforeend", burgerContainerComponent());
     mainElement.insertAdjacentHTML("beforeend", cartComponent());
@@ -160,9 +158,11 @@ function init() {
     const burgercardElements = document.querySelectorAll(".burgercard");
     burgercardElements.forEach((burgercardElement) =>
       burgercardElement.addEventListener("click", (event) => {
-        const burgercardData = event.target.parentElement;
+        const burgercardData = event.currentTarget;
         const burgerH2 = burgercardData.querySelector("h2").innerText;
-        const burgerH4 = Number(burgercardData.querySelector("h4").innerText);
+        const burgerH4 = parseFloat(
+          burgercardData.querySelector("h4").innerText
+        );
 
         burgerNameElement.insertAdjacentHTML(
           "beforeend",
@@ -175,17 +175,16 @@ function init() {
 
         const newTotal = (total += burgerH4);
         burgers.push(burgerH2);
-        console.log(burgers);
 
         burgerTotalElement.innerHTML = burgerTotal(newTotal);
       })
     );
     const checkoutButton = document.querySelector(".btn");
     checkoutButton.addEventListener("click", () => {
-      const formData = new FormData(document.querySelector("form"));
+      const formData = new FormData(document.querySelector(".form"));
       const billingAddress = Object.fromEntries(formData.entries());
       const order = {
-        burgers: burgers,
+        burgers: burgerNameElement.innerText,
         billingAddress: billingAddress,
         total: total,
       };
