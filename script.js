@@ -46,7 +46,7 @@ const burgersComponent = () => {
         `<div class="burgercard">
           <img src=${burger.img} alt="pizza">
           <h2>${burger.name}</h2>
-          <h4>${burger.price}</h4>
+          <h4>${$}${burger.price}</h4>
           <h2>${burger.meat_patty_weight}</h2>
           <p>${burger.topping}</p>
       </div>`
@@ -132,7 +132,6 @@ function init() {
 
   const logoElement = document.querySelector(".logo");
   logoElement.addEventListener("click", () => {
-    console.log("clicked");
     window.location = "/burger_webshop_frontend_only/";
   });
 
