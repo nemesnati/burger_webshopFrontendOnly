@@ -4,7 +4,7 @@ const burgers = [
     name: "Classic Burger",
     topping: "Beef Patty, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "123.4 dkg",
-    price: 4.99,
+    price: "4.99$",
   },
   {
     img: "images/cheese.jpg",
@@ -12,14 +12,14 @@ const burgers = [
     topping:
       "Beef Patty, Double American Cheese, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "105.8 dkg",
-    price: 5.99,
+    price: "5.99$",
   },
   {
     img: "images/bacon.jpg",
     name: "Bacon Burger",
     topping: "Beef Patty, Bacon, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "110 dkg",
-    price: 6.99,
+    price: "6.99$",
   },
   {
     img: "images/mushroom.png",
@@ -27,7 +27,7 @@ const burgers = [
     topping:
       "Beef Patty, Swiss Cheese, Sauteed Mushrooms, Bacon, Tomato, Onion, Pickle",
     meat_patty_weight: "115.4 dkg",
-    price: 7.99,
+    price: "7.99$",
   },
   {
     img: "images/bbq.png",
@@ -35,7 +35,7 @@ const burgers = [
     topping:
       "Beef Patty, BBQ Sauce, Cheddar Cheese, Bacon, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "130.4 dkg",
-    price: 8.99,
+    price: "8.99$",
   },
   {
     img: "images/guacamole.png",
@@ -43,7 +43,7 @@ const burgers = [
     topping:
       "Beef Patty, Guacamole, Pepper Jack Cheese, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "110 dkg",
-    price: 8.99,
+    price: "8.99$",
   },
   {
     img: "images/jalapeno.png",
@@ -51,7 +51,7 @@ const burgers = [
     topping:
       "Beef Patty, Jalapenos, Pepper Jack Cheese, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "113.4 dkg",
-    price: 7.99,
+    price: "7.99$",
   },
   {
     img: "images/teriyaki.jpg",
@@ -59,7 +59,7 @@ const burgers = [
     topping:
       "Beef Patty, Teriyaki Sauce, Pineapple, Swiss Cheese, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "122.4 dkg",
-    price: 9.99,
+    price: "9.99$",
   },
   {
     img: "images/buffalo.png",
@@ -67,13 +67,13 @@ const burgers = [
     topping:
       "Chicken Patty, Buffalo Sauce, Blue Cheese Dressing, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "123.4 dkg",
-    price: 8.99,
+    price: "8.99$",
   },
   {
     img: "images/veggie.jpg",
     name: "Veggie Burger",
     topping: "Veggie Patty, Lettuce, Tomato, Onion, Pickle",
     meat_patty_weight: "113.4 dkg",
-    price: 6.99,
+    price: "6.99$",
   },
 ];

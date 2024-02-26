@@ -31,7 +31,7 @@ const mainComponent = () => `
 </div>
 `;
 
-const footerComponent = () => `<h5>The Team Project</h2>`;
+const footerComponent = () => `<h5>The Team Project</h5>`;
 
 const aboutComponent = () => `
 <div class="about-text">
